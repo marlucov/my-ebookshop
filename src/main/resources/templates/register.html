@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link th:replace="~{fragments/style :: icon}">
+  <style th:replace="~{fragments/style :: style}"></style>
+</head>
+<body>
+<div style="margin-left: 50px;">
+  <span style="color: #1e90ff">
+    <h1>Create your account at&nbsp;
+      <span style="color: blueviolet">My eBookshop</span>
+    </h1>
+  </span>
+  <h2>
+    <form action="/register" method="post" th:object="${userDto}">
+      <table>
+        <tr>
+          <td>
+            <label for="form_1-first_name">First name</label><br>
+            <input th:field="*{firstName}" id="form_1-first_name" type="text"/>
+          </td>
+          <td>
+            <label for="form_1-last_name">Last name</label><br>
+            <input th:field="*{lastName}" id="form_1-last_name" type="text"/>
+          </td>
+        </tr>
+      </table>
+      <span th:if="${#fields.hasErrors('firstName')}">
+        <span th:errors="*{firstName}"></span><br>
+      </span><br>
+      <label for="form_1-email">Email</label><br>
+      <input th:field="*{email}" id="form_1-email" type="text"/><br><br>
+      <label for="form_1-password">Password</label><br>
+      <input th:field="*{password}" id="form_1-password" type="password"/>
+      <span th:if="${#fields.hasErrors('password')}">
+        <br><span th:errors="*{password}"></span>
+      </span><br><br>
+      <label for="form_1-address">Address</label><br>
+      <input th:field="*{address}" id="form_1-address" type="text"/><br><br>
+      <label for="form_1-phone_number">Phone number</label><br>
+      <input th:field="*{contact}" id="form_1-phone_number" type="text"/><br><br>
+      <label for="form_1-role">Account type</label><br>
+      <select th:field="*{roleKey}" id="form_1-role">
+        <option th:each="role: ${T(com.my.ebookshop.repository.entity.util.UserRole).values()}"
+          th:value="${role}" th:text="${role.label}"></option>
+      </select><br><br>
+      <br>
+      <button type="submit">Register</button>&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;
+      <a href="/">Home</a>&nbsp;
+      <a href="/login">Login</a>
+    </form>
+    <p th:text="${registerMessage}" style="color: mediumblue;"></p>
+  </h2>
+</div>
+</body>
+</html>
